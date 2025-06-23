@@ -57,6 +57,7 @@ public class JwtTokenProvider {
                 .compact();
 
         return new TokenInfo("Bearer", accessToken);
+
     }
 
     // 토큰 정보 추출
