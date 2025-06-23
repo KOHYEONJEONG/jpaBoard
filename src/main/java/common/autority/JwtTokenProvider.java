@@ -42,7 +42,7 @@ public class JwtTokenProvider {
     public TokenInfo createToken(Authentication authentication) {
         String authorities = authentication.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
-                .collect(Collectors.joining(","));
+                .collect(Collectors.joining(",")); //, 콤마를 기준으로 String 추출
 
         //만료시간
         Date now = new Date();
@@ -50,10 +50,10 @@ public class JwtTokenProvider {
 
         String accessToken = Jwts.builder()
                 .setSubject(authentication.getName())
-                .claim("auth", authorities) //클레임에 auth 키값 넣기
+                .claim("auth", authorities) //클레임에 auth 키값 넣기(클레임에 권한 남기)
                 .setIssuedAt(now)
                 .setExpiration(accessExpiration)
-                .signWith(key, SignatureAlgorithm.HS256)
+                .signWith(key, SignatureAlgorithm.HS256) //알고리즘
                 .compact();
 
         return new TokenInfo("Bearer", accessToken);
