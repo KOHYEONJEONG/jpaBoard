@@ -38,7 +38,8 @@ import java.io.IOException;
  * */
 
 public class JwtAuthenticationFilter {
-
+    //토큰 검사 필터
+    
     private final JwtTokenProvider jwtTokenProvider;
 
     public JwtAuthenticationFilter(JwtTokenProvider jwtTokenProvider) {

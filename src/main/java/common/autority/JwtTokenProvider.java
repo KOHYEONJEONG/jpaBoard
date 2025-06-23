@@ -61,7 +61,7 @@ public class JwtTokenProvider {
     }
 
     // 토큰 정보 추출
-    public Authentication getAuthentication(String token) {
+    public Authentication getAuthentication(String token) {//token은 access token이다.
         Claims claims = getClaims(token);
 
         Object authObj = claims.get("auth");
@@ -72,7 +72,8 @@ public class JwtTokenProvider {
         String auth = authObj.toString();
 
         // 권한 정보 추출(클레임에서 권한 문자열을 추출하고, 쉼표(,)로 분리한 후 SimpleGrantedAuthority 반환)
-        Collection<SimpleGrantedAuthority> authorities = Arrays.stream(auth.split(","))
+        Collection<SimpleGrantedAuthority> authorities =
+                Arrays.stream(auth.split(","))
                 .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());
 
@@ -97,7 +98,7 @@ public class JwtTokenProvider {
             getClaims(token);  // 유효성 검사 목적으로 Claims만 파싱
             return true;
             
-//            작업중 false 시  -> 아래 예외처리 catch  실행됨
+//            작업중 false 시  -> 작업 별로 Exception이 떨어지면 아래 catch  실행됨
         } catch (SecurityException e) {
             // Invalid JWT Signature
         } catch (MalformedJwtException e) {
