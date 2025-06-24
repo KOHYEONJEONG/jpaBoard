@@ -8,7 +8,7 @@ import java.util.Optional;
 
 @Repository
 public interface MemberRepository extends JpaRepository<Member, Long> {
-    Optional<Member> findByLoginid(String loginId);
+    Optional<Member> findByUserid(String userid);   // userid 컬럼이 실제 존재할 경우
 
 }
 

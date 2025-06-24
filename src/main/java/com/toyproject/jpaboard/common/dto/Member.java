@@ -18,7 +18,7 @@ public class Member {
     private Long idx;
 
     @Column(nullable = false, length = 30, updatable = false)
-    private String loginid;
+    private String userid;
 
     @Column(nullable = false, length = 100)
     private String password;
@@ -26,20 +26,18 @@ public class Member {
     @Column(nullable = false, length = 10)
     private String username;
 
-    @Column(nullable = false)
     @Temporal(TemporalType.DATE)
     private LocalDate birthdate;
 
-    @Column(nullable = false, length = 5)
     @Enumerated(EnumType.STRING)
     private Gender gender;
 
-    @Column(nullable = false, length = 30)
     private String email;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "member")
     private List<MemberRole> memberRole = new ArrayList<>();
 
-
+//    insert into member(idx, userid,password, username)
+//    values(1, 'admin', '{bcrypt}$2a$10$Pds9l4v7gqJTOrRKmo3pn.EBkdgVXHtNE03WHIOAR7OACGfk9NS9e', 'admin')
 }
 
