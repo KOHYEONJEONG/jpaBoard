@@ -1,4 +1,4 @@
-package com.toyproject.common.dto;
+package com.toyproject.jpaboard.common.dto;
 
 import lombok.Getter;
 import lombok.Setter;

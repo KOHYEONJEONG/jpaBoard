@@ -1,4 +1,4 @@
-package com.toyproject.common.enums;
+package com.toyproject.jpaboard.common.enums;
 
 public enum Gender {
     MAN("남"),

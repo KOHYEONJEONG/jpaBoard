@@ -1,6 +1,6 @@
-package com.toyproject.common.dto;
+package com.toyproject.jpaboard.common.dto;
 
-import com.toyproject.common.enums.Gender;
+import com.toyproject.jpaboard.common.enums.Gender;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -15,16 +15,16 @@ import java.util.List;
 public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private Long idx;
 
     @Column(nullable = false, length = 30, updatable = false)
-    private String loginId;
+    private String loginid;
 
     @Column(nullable = false, length = 100)
     private String password;
 
     @Column(nullable = false, length = 10)
-    private String name;
+    private String username;
 
     @Column(nullable = false)
     @Temporal(TemporalType.DATE)
@@ -36,7 +36,6 @@ public class Member {
 
     @Column(nullable = false, length = 30)
     private String email;
-
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "member")
     private List<MemberRole> memberRole = new ArrayList<>();

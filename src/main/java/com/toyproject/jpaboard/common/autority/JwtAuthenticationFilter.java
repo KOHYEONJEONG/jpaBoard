@@ -1,4 +1,4 @@
-package com.toyproject.common.autority;
+package com.toyproject.jpaboard.common.autority;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.FilterChain;
@@ -7,7 +7,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -66,13 +65,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws ServletException, IOException {
         //필터 로직, s
-        String token = resolveToken((HttpServletRequest) request);//access token
-
-
-        //토큰이 정상적인 토큰이면 정보를 뽑아옴
-
+        String token = resolveToken(request);//access token
         try{
-            if (token != null && jwtTokenProvider.validateToken(token)) {
+            if (token != null && jwtTokenProvider.validateToken(token)) {  //토큰이 정상적인 토큰이면 정보를 뽑아옴
                 Authentication authentication = jwtTokenProvider.getAuthentication(token);
                 SecurityContextHolder.getContext().setAuthentication(authentication);//⭐핵심 : 스프링 시큐리티가 인증된 사용자로 인식함.
             }

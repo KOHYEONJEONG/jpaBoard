@@ -1,4 +1,4 @@
-package com.toyproject.common.autority;
+package com.toyproject.jpaboard.common.autority;
 
 import lombok.Data;
 import lombok.Getter;

@@ -1,4 +1,4 @@
-package com.toyproject.common.enums;
+package com.toyproject.jpaboard.common.enums;
 
 public enum ResultCode {
     SUCCESS("정상 처리 되었습니다."),

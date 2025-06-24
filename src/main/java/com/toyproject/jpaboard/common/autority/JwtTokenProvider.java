@@ -1,4 +1,4 @@
-package com.toyproject.common.autority;
+package com.toyproject.jpaboard.common.autority;
 
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
@@ -21,11 +21,12 @@ import java.util.stream.Collectors;
 public class JwtTokenProvider {
 
 //    @Value("${jwt.secret}")
-    private String secretKey = "DadFuFN4Oui8BfV3SCFj6R9fyJ9hD45E6AGFsXgFsRhTfYdSdS";
+    private String secretKey = "DadFuFN4Oui8BfV3SCFj6R9fyJ9hD45E6AGFsXgFsRhTfYdSdS";//영문 숫자 조합으로 32글자 이상이면됨
 
     private SecretKey key;
 
-    private final long EXPIRATION_MILLISECONDS = 1000 * 60 * 60; // 예: 1시간
+    private final long EXPIRATION_MILLISECONDS = 1000 * 60 * 60; //1시간
+    private final long EXPIRATION_MILLISECONDS_REFRESH = 1000L * 60 * 60 * 24 * 14; //14일
 
     // 스프링 컨테이너가 해당 빈을 생성하고 의존성 주입이 끝난 직후에 자동으로 호출되는 메서드
     @PostConstruct
@@ -46,12 +47,23 @@ public class JwtTokenProvider {
         //만료시간
         Date now = new Date();
         Date accessExpiration = new Date(now.getTime() + EXPIRATION_MILLISECONDS);
+        Date refreshExpiration = new Date(now.getTime() + EXPIRATION_MILLISECONDS_REFRESH);
 
+        //accessToken 토큰 생성
         String accessToken = Jwts.builder()
                 .setSubject(authentication.getName())
                 .claim("auth", authorities) //클레임에 auth 키값 넣기(클레임에 권한 남기)
                 .setIssuedAt(now)
                 .setExpiration(accessExpiration)
+                .signWith(key, SignatureAlgorithm.HS256) //알고리즘
+                .compact();
+
+        //refreshToken 토큰 생성(레디스에 저장하기)
+        String refreshToken = Jwts.builder()
+                .setSubject(authentication.getName())
+                .claim("auth", authorities)
+                .setIssuedAt(now)
+                .setExpiration(refreshExpiration)
                 .signWith(key, SignatureAlgorithm.HS256) //알고리즘
                 .compact();
 
