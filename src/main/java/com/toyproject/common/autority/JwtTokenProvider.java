@@ -1,10 +1,9 @@
-package common.autority;
+package com.toyproject.common.autority;
 
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import jakarta.annotation.PostConstruct;
-import lombok.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -80,6 +79,7 @@ public class JwtTokenProvider {
         UserDetails principal = new User(claims.getSubject(), "", authorities);
 
         //UsernamePasswordAuthenticationToken은 스프링 시큐리티의 Authentication 구현체로, 인증 객체를 만들어 반환
+        //ID/PW 기반 인증 정보를 담기 위해 사용돼.
         return new UsernamePasswordAuthenticationToken(principal, "", authorities);
     }
 
@@ -101,19 +101,25 @@ public class JwtTokenProvider {
 //            작업중 false 시  -> 작업 별로 Exception이 떨어지면 아래 catch  실행됨
         } catch (SecurityException e) {
             // Invalid JWT Signature
+            throw new RuntimeException("잘못된 JWT 서명입니다.");
         } catch (MalformedJwtException e) {
             // Invalid JWT token
+            throw new RuntimeException("유효하지 않은 JWT 토큰입니다.");
         } catch (ExpiredJwtException e) {
             // Expired JWT token
+            throw new RuntimeException("만료된 JWT 토큰입니다.");
         } catch (UnsupportedJwtException e) {
             // Unsupported JWT token
+            throw new RuntimeException("지원하지 않는 JWT 토큰입니다.");
         } catch (IllegalArgumentException e) {
             // JWT claims string is empty
+            throw new RuntimeException("JWT 클레임이 비어있습니다.");
         } catch (Exception e) {
             // 기타 예외 처리
+            throw new RuntimeException("JWT 처리 중 알 수 없는 오류가 발생했습니다.");
         }
 
-        return false;
+//        return false;
     }
 
 }
