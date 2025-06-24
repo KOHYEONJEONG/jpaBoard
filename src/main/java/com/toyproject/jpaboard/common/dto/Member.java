@@ -13,23 +13,36 @@ import java.util.List;
 @Getter
 @Setter
 public class Member {
+
+    public Member() {
+    }
+
+    public Member(Long idx, String userid, String password, String username, Gender gender) {
+        this.idx = idx;
+        this.userid = userid;
+        this.password = password;
+        this.username = username;
+        this.gender = gender;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long idx;
 
-    @Column(nullable = false, length = 30, updatable = false)
+    @Column(length = 30, updatable = false)
     private String userid;
 
-    @Column(nullable = false, length = 100)
+    @Column( length = 100)
     private String password;
 
-    @Column(nullable = false, length = 10)
+    @Column( length = 10)
     private String username;
 
     @Temporal(TemporalType.DATE)
     private LocalDate birthdate;
 
     @Enumerated(EnumType.STRING)
+    @Column(length = 5)
     private Gender gender;
 
     private String email;

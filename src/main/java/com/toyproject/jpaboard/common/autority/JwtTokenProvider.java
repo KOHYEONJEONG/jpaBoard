@@ -97,7 +97,7 @@ public class JwtTokenProvider {
 
     //토큰 안에 클레임 꺼내오기.(클레임 꺼내오면 이 안에 auth 를 추출할 수 있다.)
     private Claims getClaims(String token) {
-        return Jwts.parserBuilder()
+        return Jwts.parserBuilder()//높음 (Key 객체 기반 보안 향상)
                 .setSigningKey(key) // key는 SecretKey 타입의 필드라고 가정
                 .build()
                 .parseClaimsJws(token)

@@ -26,7 +26,7 @@ logging:
     root: info
 
 server:
-  port: 8082
+  port: 8087
 
 jwt:
   secret: DadFuFN4Oui8BfV3SCFj6R9fyJ9hD45E6AGFsXgFsRhTfYdSdS #

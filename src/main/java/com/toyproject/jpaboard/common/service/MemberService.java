@@ -1,6 +1,7 @@
 package com.toyproject.jpaboard.common.service;
 
 import com.toyproject.jpaboard.common.dto.Member;
+import com.toyproject.jpaboard.common.enums.Gender;
 import com.toyproject.jpaboard.common.repository.MemberRepository;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
@@ -64,5 +65,17 @@ public class MemberService implements UserDetailsService {
                 .password(member.getPassword())// 예 : "{bcrypt}$2a$10$Pds9l4v7gqJTOrRKmo3pn.EBkdgVXHtNE03WHIOAR7OACGfk9NS9e"
                 .roles("USER")
                 .build();
+    }
+
+    public Member createDefaultMember() {
+        Member member = new Member(
+                1L
+                ,"admin",                  // loginId
+                "{bcrypt}$2a$10$Pds9l4v7gqJTOrRKmo3pn.EBkdgVXHtNE03WHIOAR7OACGfk9NS9e"          // password (실무에서는 인코딩 필수)
+                ,"admin"
+                ,Gender.MAN                     // 기본 성별
+        );
+
+        return memberRepository.save(member);  // DB에 저장
     }
 }

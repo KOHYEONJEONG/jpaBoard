@@ -1,6 +1,7 @@
 package com.toyproject.jpaboard.controller;
 
 import com.toyproject.jpaboard.common.dto.Login;
+import com.toyproject.jpaboard.common.dto.Member;
 import com.toyproject.jpaboard.common.dto.User;
 import com.toyproject.jpaboard.common.service.MemberService;
 import com.toyproject.jpaboard.common.autority.JwtTokenProvider;
@@ -52,5 +53,11 @@ public class MemberController {
 //        @AuthenticationPrincipal 파라미터에 자동으로 주입해줌
 
         return ResponseEntity.ok("현재 사용자: " + user.getUsername());
+    }
+
+    @PostMapping("/create-default")
+    public ResponseEntity<String> createDefaultMember() {
+        Member saved = memberService.createDefaultMember();
+        return ResponseEntity.ok("생성된 회원 ID: " + saved.getUserid());
     }
 }
