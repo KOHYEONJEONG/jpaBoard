@@ -1,0 +1,20 @@
+1. TokenInfo
+로그인시 토큰 정보를 담아 클라이언트에게 전달하는 용도
+
+권한 관리 방법 알아보기
+2. JwtTokenProvider
+Token 생성, Token 정보 추출, Token 검증
+
+3. JwtAuthenticationFilter
+GenericFilterBean 상속
+Filter로 Token 정보를 검사하고 SecurityContextHolder에 authentication을 기록
+
+4. SecurityConfig
+인증 및 인가 관리 config
+
+5. CustomUserDetailsService
+UserDetailsService 구현
+loadUserByUsername override
+
+secretKey = 암호화 할때 사용, HS256 알고리즘을 사용하기 위해, 256비트 보다 커야함(32글
+      자 이상)

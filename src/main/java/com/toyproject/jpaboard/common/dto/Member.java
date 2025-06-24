@@ -14,8 +14,7 @@ import java.util.List;
 @Setter
 public class Member {
 
-    public Member() {
-    }
+
 
     public Member(Long idx, String userid, String password, String username, Gender gender) {
         this.idx = idx;
@@ -29,22 +28,24 @@ public class Member {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long idx;
 
-    @Column(length = 30, updatable = false)
+    @Column(nullable = false, length = 30, updatable = false)
     private String userid;
 
-    @Column( length = 100)
+    @Column(nullable = false, length = 100)
     private String password;
 
-    @Column( length = 10)
+    @Column(nullable = false, length = 10)
     private String username;
 
     @Temporal(TemporalType.DATE)
+    @Column(nullable = false)
     private LocalDate birthdate;
 
     @Enumerated(EnumType.STRING)
-    @Column(length = 5)
+    @Column(nullable = false,length = 5)
     private Gender gender;
 
+    @Column(nullable = false)
     private String email;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "member")

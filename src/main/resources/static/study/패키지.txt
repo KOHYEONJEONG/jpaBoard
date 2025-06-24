@@ -1,0 +1,3 @@
+/com/toyproject/jpaboard/common/autority
+authority : 권한 관련 기능 분류
+service : CustomUserDetailsService 생성
