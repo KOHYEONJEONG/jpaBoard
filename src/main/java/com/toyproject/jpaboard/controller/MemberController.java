@@ -2,7 +2,7 @@ package com.toyproject.jpaboard.controller;
 
 import com.toyproject.jpaboard.common.dto.Login;
 import com.toyproject.jpaboard.common.dto.Member;
-import com.toyproject.jpaboard.common.dto.User;
+import com.toyproject.jpaboard.common.dto.RequestMemberDTO;
 import com.toyproject.jpaboard.common.service.MemberService;
 import com.toyproject.jpaboard.common.autority.JwtTokenProvider;
 import com.toyproject.jpaboard.common.autority.TokenInfo;
@@ -40,7 +40,7 @@ public class MemberController {
 
     // 회원가입 API (토큰 발급x)
     @PostMapping("/signup")
-    public ResponseEntity<String> signup(@RequestBody User request) {
+    public ResponseEntity<String> signup(@RequestBody RequestMemberDTO request) {
         memberService.saveUser(request.getUsername(), request.getPassword());
         return ResponseEntity.ok("회원가입 완료");
     }
@@ -55,9 +55,9 @@ public class MemberController {
         return ResponseEntity.ok("현재 사용자: " + user.getUsername());
     }
 
-    @PostMapping("/create-default")
+    @PostMapping("/admin-create-default")
     public ResponseEntity<String> createDefaultMember() {
-        Member saved = memberService.createDefaultMember();
-        return ResponseEntity.ok("생성된 회원 ID: " + saved.getUserid());
+        Member saved = memberService.createDefaultMember();//JPA
+        return ResponseEntity.ok("초기 생성된 회원 ID: " + saved.getUserid());
     }
 }

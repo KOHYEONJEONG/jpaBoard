@@ -69,8 +69,7 @@ public class MemberService implements UserDetailsService {
 
     public Member createDefaultMember() {
         Member member = new Member(
-                1L
-                ,"admin",                  // loginId
+                "admin",                  // loginId
                 "{bcrypt}$2a$10$Pds9l4v7gqJTOrRKmo3pn.EBkdgVXHtNE03WHIOAR7OACGfk9NS9e"          // password (실무에서는 인코딩 필수)
                 ,"admin"
                 ,Gender.MAN                     // 기본 성별
