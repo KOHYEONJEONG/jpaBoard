@@ -13,6 +13,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.User;//스프링 시큐리티 제공
 import org.springframework.web.bind.annotation.*;
 
 @Slf4j
@@ -47,7 +48,7 @@ public class MemberController {
 
     // 로그인된 사용자 정보 확인 API (토큰 확인)
     @GetMapping("/me")
-    public ResponseEntity<String> me(@AuthenticationPrincipal org.springframework.security.core.userdetails.User user) {
+    public ResponseEntity<String> me(@AuthenticationPrincipal User user) {//org.springframework.security.core.userdetails.User
 //        Spring Security가 요청을 가로채고,
 //        SecurityContextHolder 에 저장된 Authentication.getPrincipal() 값을 꺼내서
 //        @AuthenticationPrincipal 파라미터에 자동으로 주입해줌
